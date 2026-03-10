@@ -1,5 +1,5 @@
 {
-  "name": "@reading-hub/source",
+  "name": "@reading-hub/main",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
@@ -26,6 +26,7 @@
     "@nx/devkit": "22.5.4",
     "@nx/eslint": "22.5.4",
     "@nx/eslint-plugin": "22.5.4",
+    "@nx/gradle": "22.5.4",
     "@nx/jest": "22.5.4",
     "@nx/js": "22.5.4",
     "@nx/playwright": "22.5.4",
