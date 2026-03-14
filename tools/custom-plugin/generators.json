@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "angular-module-generator": {
+      "factory": "./src/generators/angular-module-generator/angular-module-generator",
+      "schema": "./src/generators/angular-module-generator/schema.json",
+      "description": "angular-module-generator generator"
+    }
+  }
+}
