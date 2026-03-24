@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "Angular Domain Generator",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Domain name, e.g. orders, billing, auth"
+    }
+  },
+  "required": ["name"]
+}

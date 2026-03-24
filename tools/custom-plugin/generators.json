@@ -4,6 +4,11 @@
       "factory": "./src/generators/angular-module-generator/angular-module-generator",
       "schema": "./src/generators/angular-module-generator/schema.json",
       "description": "angular-module-generator generator"
+    },
+    "angular-domain": {
+      "factory": "./src/generators/angular-domain/angular-domain",
+      "schema": "./src/generators/angular-domain/schema.json",
+      "description": "angular-domain generator"
     }
   }
 }

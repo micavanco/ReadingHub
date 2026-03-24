@@ -15,7 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@reading-hub/custom-plugin": ["tools/custom-plugin/src/index.ts"]
+      "@reading-hub/custom-plugin": ["tools/custom-plugin/src/index.ts"],
+      "@reading-hub/feature-books-library": [
+        "libs/books-library/feature-books-library/src/index.ts"
+      ],
+      "@reading-hub/ui-books-library": [
+        "libs/books-library/ui-books-library/src/index.ts"
+      ],
+      "@reading-hub/data-access-books-library": [
+        "libs/books-library/data-access-books-library/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

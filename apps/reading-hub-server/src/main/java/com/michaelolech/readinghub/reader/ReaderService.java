@@ -1,5 +1,9 @@
 package com.michaelolech.readinghub.reader;
 
+import nl.siegmann.epublib.domain.Book;
+import nl.siegmann.epublib.domain.Resource;
+import nl.siegmann.epublib.epub.EpubReader;
+import nl.siegmann.epublib.service.MediatypeService;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
@@ -10,6 +14,9 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class ReaderService {
@@ -18,9 +25,8 @@ public class ReaderService {
 
         try {
 
-            String pageContent = parseToHTML();
-            System.out.println("Page - " + page);
-            System.out.println(pageContent);
+            String pageContent = parseEpubToHTML(page);
+
 
             return pageContent;
         } catch (Exception e) {
@@ -30,7 +36,7 @@ public class ReaderService {
         return null;
     }
 
-    public String parseToHTML() throws IOException, SAXException, TikaException {
+    public String parsePDFToHTML() throws IOException, SAXException, TikaException {
         ContentHandler handler = new ToXMLContentHandler();
 
         AutoDetectParser parser = new AutoDetectParser();
@@ -41,4 +47,61 @@ public class ReaderService {
             return handler.toString();
         }
     }
+
+  public String parseEpubToHTML(int page) throws IOException, SAXException, TikaException {
+    try (InputStream stream = this.getClass().getClassLoader()
+      .getResourceAsStream("./books/java.epub")) {
+
+      EpubReader epubReader = new EpubReader();
+      Book book = epubReader.readEpub(stream);
+
+
+
+      StringBuilder outputBook = new StringBuilder();
+
+
+      Collection<Resource> resources = book.getResources().getAll();
+
+      for (Resource resource : resources) {
+        if (resource.getMediaType() == MediatypeService.CSS) {
+
+          String css = new String(resource.getData(), UTF_8);
+
+          outputBook
+            .append("<style type=\"text/css\">")
+            .append(css)
+            .append("</style>");
+        }
+      }
+
+      outputBook
+        .append("<style type=\"text/css\">")
+        .append("body { max-width: 690px; margin: auto; }")
+        .append("</style>");
+
+      for (Resource resource : book.getContents()) {
+
+        String content = resource.getReader().readAllAsString();
+        int index = content.indexOf("<span class=\"calibre20\">" + page + "</span>");
+
+        System.out.println(content);
+
+        if (index > -1) {
+          int endIndex = content.indexOf("<span class=\"calibre20\">" + (page + 1) + "</span>");
+
+          System.out.println(book.getSpine().getResourceIndex(resource));
+
+          if (endIndex > -1) {
+            outputBook.append(content, index, endIndex);
+          } else {
+            outputBook.append(content);
+          }
+
+          return outputBook.toString();
+        }
+      }
+
+      return outputBook.toString();
+    }
+  }
 }

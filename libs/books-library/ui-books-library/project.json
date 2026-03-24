@@ -1,0 +1,21 @@
+{
+  "name": "ui-books-library",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/books-library/ui-books-library/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:books-library", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/books-library/ui-books-library/jest.config.cts",
+        "tsConfig": "libs/books-library/ui-books-library/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
