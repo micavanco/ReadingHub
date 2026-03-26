@@ -1,6 +1,6 @@
 package com.michaelolech.readinghub.reader;
 
-import nl.siegmann.epublib.domain.Book;
+import com.michaelolech.readinghub.reader.dto.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubReader;
 import nl.siegmann.epublib.service.MediatypeService;
@@ -14,39 +14,56 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class ReaderService {
 
-    public String readBook(int page) {
-
-        try {
-
-            String pageContent = parseEpubToHTML(page);
-
-
-            return pageContent;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+  public List<Book> getBooks() {
+    try (Stream<Path> files = Files.list(Paths.get("./books"))) {
+      List<Path> result = files
+        .filter(p -> !Files.isDirectory(p))
+        .filter(p -> p.toString().endsWith(".epub"))
+        .toList();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public String parsePDFToHTML() throws IOException, SAXException, TikaException {
-        ContentHandler handler = new ToXMLContentHandler();
+  public String readBook(int page) {
 
-        AutoDetectParser parser = new AutoDetectParser();
-        Metadata metadata = new Metadata();
-        try (InputStream stream = this.getClass().getClassLoader()
-                .getResourceAsStream("./books/java.pdf")) {
-            parser.parse(stream, handler, metadata);
-            return handler.toString();
-        }
-    }
+      try {
+
+          String pageContent = parseEpubToHTML(page);
+
+
+          return pageContent;
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+
+      return null;
+  }
+
+  public String parsePDFToHTML() throws IOException, SAXException, TikaException {
+      ContentHandler handler = new ToXMLContentHandler();
+
+      AutoDetectParser parser = new AutoDetectParser();
+      Metadata metadata = new Metadata();
+      try (InputStream stream = this.getClass().getClassLoader()
+              .getResourceAsStream("./books/java.pdf")) {
+          parser.parse(stream, handler, metadata);
+          return handler.toString();
+      }
+  }
 
   public String parseEpubToHTML(int page) throws IOException, SAXException, TikaException {
     try (InputStream stream = this.getClass().getClassLoader()

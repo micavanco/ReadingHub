@@ -5,7 +5,12 @@
     "module": "commonjs",
     "target": "es2016",
     "types": ["jest", "node"],
-    "moduleResolution": "node10"
+    "moduleResolution": "node10",
+    "paths": {
+      "@core/*": ["./src/app/core/*"],
+      "@features/*": ["./src/app/features/*"],
+      "@layout": ["./src/app/layout"]
+    }
   },
   "files": ["src/test-setup.ts"],
   "include": [

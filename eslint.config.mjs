@@ -25,6 +25,12 @@ export default [
           allow: [],
           depConstraints: [
             {
+              sourceTag: 'type:app',
+              onlyDependOnLibsWithTags: [
+                '*',
+              ],
+            },
+            {
               sourceTag: 'type:feature',
               onlyDependOnLibsWithTags: [
                 'type:ui',

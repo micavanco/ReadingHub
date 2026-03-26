@@ -1,0 +1,8 @@
+<div class="books-list">
+  @for (book of books(); track book.id) {
+    <div class="book">
+      <img [src]="book.image_url" [alt]="'Cover of a book ' + book.title">
+      <div>{{ book.title }}</div>
+    </div>
+  }
+</div>

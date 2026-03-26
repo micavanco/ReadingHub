@@ -1,0 +1,13 @@
+<header>
+  <div class="logo" [routerLink]="'/'">Reading Hub</div>
+  <div class="buttons">
+    <span
+      class="material-symbols-outlined theme-switcher"
+      role="button"
+      tabindex="0"
+      (click)="onThemeChanged()"
+    >
+      {{ `${theme()}_mode` }}
+    </span>
+  </div>
+</header>

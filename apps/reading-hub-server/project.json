@@ -1,6 +1,7 @@
 {
+  "name": "reading-hub-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "targets": {
-    "bootRun": {
-    }
+    "bootRun": {}
   }
 }

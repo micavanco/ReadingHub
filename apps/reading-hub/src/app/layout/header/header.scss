@@ -1,0 +1,33 @@
+header {
+  position: fixed;
+  display: flex;
+  height: 30px;
+  width: calc(100vw - 30px);
+  background: var(--header-background-color);
+  justify-content: space-between;
+  padding: 10px 15px;
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--headline-font), sans-serif;
+  -webkit-box-shadow: 0 9px 19px -8px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0 9px 19px -8px rgba(66, 68, 90, 1);
+  box-shadow: 0 9px 19px -8px rgba(66, 68, 90, 1);
+
+  .logo {
+    margin-top: 5px;
+    cursor: pointer;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.theme-switcher {
+  color: var(--text-color);
+  cursor: pointer;
+  margin-right: 20px;
+}
